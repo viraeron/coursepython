@@ -1,37 +1,31 @@
 if __name__ == "__main__":
     class Transmission:
-
         def __init__(self, gear_ratio: float, efficiency: float):
             self._gear_ratio = gear_ratio
             self._efficiency = efficiency
 
         @property
         def gear_ratio(self) -> float:
-            #Передатьчное отношение
             return self._gear_ratio
 
         @property
         def efficiency(self) -> float:
-            #КПД
             return self._efficiency
 
+        def calculate_output_torque(self, input_torque: float) -> float:
+
+            return input_torque * self.gear_ratio * self.efficiency
 
         def __repr__(self) -> str:
-
             return f"{self.__class__.__name__}(gear_ratio={self.gear_ratio!r}, efficiency={self.efficiency!r})"
 
-
     class WormGear(Transmission):
-        #червячная передача
-
         def __init__(self, gear_ratio: float, efficiency: float, lead_angle: float):
-
             super().__init__(gear_ratio, efficiency)
             self.lead_angle = lead_angle
 
         @property
         def lead_angle(self) -> float:
-            #Угол подъема
             return self._lead_angle
 
         @lead_angle.setter
@@ -43,17 +37,8 @@ if __name__ == "__main__":
         def __str__(self) -> str:
             return f"{super().__str__()} с углом подъема {self.lead_angle}°"
 
-        def calculate_output_torque(self, input_torque: float) -> float:
-            #Момент
-            return input_torque
-            self.gear_ratio
-            self.efficiency
-
-
     class CylindricalGear(Transmission):
-
         def __init__(self, gear_ratio: float, efficiency: float, number_of_teeth: int):
-
             super().__init__(gear_ratio, efficiency)
             self.number_of_teeth = number_of_teeth
 
@@ -70,5 +55,9 @@ if __name__ == "__main__":
         def __str__(self) -> str:
             return f"{super().__str__()} с {self.number_of_teeth} зубьями"
 
+        def calculate_output_torque(self, input_torque: float) -> float:
 
-    pass
+            return super().calculate_output_torque(input_torque)
+
+    
+   
